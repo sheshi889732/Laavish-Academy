@@ -1,0 +1,402 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laavish Academy | Makeup, Hair & Beauty</title>
+  <meta name="theme-color" content="#ff5c7c" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #ff5c7c;
+      --accent: #D4AF37;
+      --light: #faf5f1;
+      --dark: #231f20;
+      --muted: #575252;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      color: #222;
+      background: #ff5c7c;
+      scroll-behavior: smooth;
+    }
+
+    .navbar {
+      background: 	#ffa9a9;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      transition: all .3s ease;
+    }
+    .navbar.scrolled { background: 	#ffa9a9; }
+    .navbar-brand { font-weight: 700; letter-spacing: 1px; color: #fff !important; }
+    .nav-link { color: rgba(255,255,255,.88) !important; margin: 0 8px; }
+    .nav-link:hover, .nav-link.active { color: #fff !important; }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #ff5c7c;
+      position: relative;
+      color: white;
+      text-align: center;
+      padding: 120px 0 80px;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255, 92, 124, .35), rgba(255, 92, 124, .55));
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 940px; margin: 0 auto; }
+    .hero h1 { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; line-height: 1.02; margin-bottom: 1rem; }
+    .hero p { font-size: 1.2rem; max-width: 720px; margin: 0 auto 1.8rem; color: rgba(255,255,255,.92); }
+    .hero .btn { padding: 13px 30px; border-radius: 40px; font-weight: 600; }
+    .hero .hero-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 1.8rem; }
+    .hero .hero-tag { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.2); border-radius: 999px; padding: 10px 18px; font-size: .95rem; }
+
+    .section { padding: 100px 0; }
+    .section-title { font-size: 2.9rem; font-weight: 800; margin-bottom: 1rem; color: var(--dark); }
+    .section-subtitle { color: var(--muted); font-size: 1rem; max-width: 700px; text-align: center; margin: 0 auto; }
+
+    .feature-card,
+    .service-card,
+    .testimonial-card,
+    .contact-card {
+      border: none;
+      border-radius: 28px;
+      background: rgba(255,255,255,.94);
+      box-shadow: 0 24px 60px rgba(23, 16, 20, .12);
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .feature-card:hover,
+    .service-card:hover,
+    .testimonial-card:hover,
+    .contact-card:hover { transform: translateY(-8px); box-shadow: 0 32px 70px rgba(23, 16, 20, .15); }
+
+    .feature-icon {
+      width: 65px;
+      height: 65px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      background: rgba(255, 92, 124, .12);
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+    .service-card img { border-top-left-radius: 28px; border-top-right-radius: 28px; object-fit: cover; height: 240px; width: 100%; }
+    .instructor-card img { width: 130px; height: 130px; object-fit: cover; border-radius: 50%; margin: 0 auto 20px; }
+    .testimonial-card { padding: 30px; }
+    .testimonial-card p { color: #5a4f4f; }
+    .testimonial-avatar { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; margin-right: 14px; }
+    .testimonial-author { font-weight: 700; margin-bottom: 0; }
+
+    .contact-card { padding: 35px; }
+    .contact-card label { font-weight: 600; }
+    .contact-card .form-control { border-radius: 18px; }
+
+    footer { background: #ff5c7c; color: rgba(255,255,255,.75); padding: 45px 0; }
+    footer a { color: rgba(255,255,255,.85); text-decoration: none; }
+    footer a:hover { color: #fff; }
+    .footer-logo { font-size: 1.25rem; letter-spacing: .07em; text-transform: uppercase; font-weight: 800; color: #fff; }
+
+    .back-to-top {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 20px 35px rgba(121, 65, 34, .24);
+      text-decoration: none;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: .25s ease;
+    }
+    .back-to-top.show { opacity: 1; visibility: visible; transform: translateY(-4px); }
+
+    @media (max-width: 991px) {
+      .hero { padding-top: 100px; }
+      .hero h1 { font-size: 2.7rem; }
+      .section { padding: 70px 0; }
+    }
+    @media (max-width: 576px) {
+      .navbar .nav-link { margin: 0 4px; }
+      .hero { padding: 90px 0 60px; }
+      .hero p { font-size: 1rem; }
+      .hero-tags { flex-direction: column; gap: 10px; }
+    }
+  </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbarNav" data-bs-offset="80" tabindex="0">
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#home">Laavish Academy</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#programs">Programs</a></li>
+          <li class="nav-item"><a class="nav-link" href="#instructors">Instructors</a></li>
+          <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section id="home" class="hero">
+    <div class="hero-content" data-aos="fade-up">
+      <span class="d-inline-block mb-3 text-uppercase" style="letter-spacing: .24em; font-weight: 700; color: rgba(255,255,255,.85);">Makeup · Hair · Beauty</span>
+      <h1>Laavish Academy Transforms passion into pro beauty careers.</h1>
+      <p>Learn premium makeup artistry, hair styling, skin care, and bridal beauty with expert trainers in a luxury academy designed for confident, creative professionals.</p>
+      <a href="#programs" class="btn btn-warning btn-lg text-dark me-3">Explore Programs</a>
+      <div class="hero-tags mt-4">
+        <span class="hero-tag">Weekend Batches</span>
+        <span class="hero-tag">Live Demos</span>
+        <span class="hero-tag">Certification</span>
+        <span class="hero-tag">Hands-on Training</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section bg-white">
+    <div class="container">
+      <div class="row align-items-center gx-5">
+        <div class="col-lg-6" data-aos="fade-right">
+          <div class="feature-card p-5">
+            <h2 class="section-title">About Laavish Academy</h2>
+            <p class="section-subtitle">A premium beauty academy built for aspiring makeup artists, hair stylists, and skincare professionals. We combine industry-led curriculum, creative coaching, and career-ready training.</p>
+            <ul class="mt-4" style="color: var(--muted);">
+              <li class="mb-3"><i class="fas fa-check-circle text-warning me-2"></i> Professional courses in makeup, hairstyling, skincare, and bridal beauty.</li>
+              <li class="mb-3"><i class="fas fa-check-circle text-warning me-2"></i> Expert mentors with salon and bridal experience.</li>
+              <li class="mb-3"><i class="fas fa-check-circle text-warning me-2"></i> Real studio practice, live demonstrations and portfolio creation.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <img class="rounded-4 shadow-lg" src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=900&q=80" alt="Beauty academy" width="100%">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="programs" class="section">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <h2 class="section-title">Our Signature Programs</h2>
+        <p class="section-subtitle">Flexible courses designed for beginners, professionals and bridal artists. Choose a program that fits your style and schedule.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="80">
+          <div class="service-card overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=900&q=80" alt="Makeup training">
+            <div class="p-4">
+              <h4 class="fw-bold">Makeup Artistry</h4>
+              <p>Master day, evening, editorial and bridal makeup with step-by-step techniques and product knowledge.</p>
+              <span class="text-warning fw-semibold">Duration: 8 weeks</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="160">
+          <div class="service-card overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80" alt="Hair styling course">
+            <div class="p-4">
+              <h4 class="fw-bold">Hair Styling</h4>
+              <p>Learn cutting-edge hair styling, braids, updos, and salon techniques for fashion and wedding clients.</p>
+              <span class="text-warning fw-semibold">Duration: 6 weeks</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="240">
+          <div class="service-card overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1526040652367-ac003a0475fe?auto=format&fit=crop&w=900&q=80" alt="Skincare course">
+            <div class="p-4">
+              <h4 class="fw-bold">Skin & Beauty</h4>
+              <p>Explore skincare consultations, facial treatments, makeup prep and radiant skin workflows.</p>
+              <span class="text-warning fw-semibold">Duration: 5 weeks</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-white">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <h2 class="section-title">Why Choose Laavish?</h2>
+        <p class="section-subtitle">We prepare you to deliver beautiful results while building confidence, style and professional polish.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="80">
+          <div class="feature-card p-4 text-center h-100">
+            <div class="feature-icon"><i class="fas fa-star"></i></div>
+            <h5 class="mb-3">Industry Mentors</h5>
+            <p>Learn from accomplished artists and stylists with years of bridal and editorial experience.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="160">
+          <div class="feature-card p-4 text-center h-100">
+            <div class="feature-icon"><i class="fas fa-hand-holding-medical"></i></div>
+            <h5 class="mb-3">Hands-on Practice</h5>
+            <p>Practice on live models, build portfolios, and gain real client confidence throughout the course.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="240">
+          <div class="feature-card p-4 text-center h-100">
+            <div class="feature-icon"><i class="fas fa-award"></i></div>
+            <h5 class="mb-3">Certification</h5>
+            <p>Receive a professional certificate and career guidance for salon, bridal, and freelance success.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="instructors" class="section">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <h2 class="section-title">Meet the Experts</h2>
+        <p class="section-subtitle">Our trainers bring top salon skills, bridal artistry and curated beauty expertise to every class.</p>
+      </div>
+      <div class="row g-4 justify-content-center">
+        <div class="col-sm-6 col-lg-4" data-aos="fade-up" data-aos-delay="80">
+          <div class="feature-card p-4 text-center instructor-card h-100">
+            <img src="images/maha2.png" alt="Instructor 1">
+            <h5 class="mt-3">Maha Sheshadri</h5>
+            <p class="text-muted">Makeup Trainer</p>
+            <p>Specialized in bridal glamour and high-fashion beauty campaigns.</p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials" class="section bg-white">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <h2 class="section-title">Student Stories</h2>
+        <p class="section-subtitle">Hear from Laavish graduates who launched beauty careers after our immersive training.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6" data-aos="fade-up" data-aos-delay="80">
+          <div class="testimonial-card h-100">
+            <p>"Laavish helped me build both skill and confidence. The bridal makeup course was practical, creative and the instructors were amazing."</p>
+            <div class="d-flex align-items-center mt-4">
+              <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80" alt="Student 1">
+              <div>
+                <p class="testimonial-author mb-0">Ananya Patel</p>
+                <small class="text-muted">Freelance Makeup Artist</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6" data-aos="fade-up" data-aos-delay="160">
+          <div class="testimonial-card h-100">
+            <p>"The hair styling sessions were intense and inspiring. I now work with brides and fashion clients with professional techniques."</p>
+            <div class="d-flex align-items-center mt-4">
+              <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80" alt="Student 2">
+              <div>
+                <p class="testimonial-author mb-0">Mira Singh</p>
+                <small class="text-muted">Salon Stylist</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-5" data-aos="fade-right">
+          <div class="contact-card">
+            <h3 class="section-title">Ready to join Laavish?</h3>
+            <p class="section-subtitle">Ask about our next batch, sample class, or academy tour. We’re here to help you start your beauty career.</p>
+            <p class="mb-2"><i class="fas fa-map-marker-alt me-2 text-warning"></i>Hyderabad, Telangana</p>
+            <p class="mb-2"><i class="fas fa-phone me-2 text-warning"></i>+91 81252 26109</p>
+            <p class="mb-2"><i class="fas fa-envelope me-2 text-warning"></i>laavish143@gmail.com</p>
+            <div class="mt-4 d-flex gap-2">
+              <a href="https://instagram.com/laavish_academy_hyderabad" class="btn btn-outline-dark"><i class="fab fa-instagram me-2"></i>Instagram</a>
+              <a href="https://wa.me/918125226109" class="btn btn-outline-dark"><i class="fab fa-whatsapp me-2"></i>WhatsApp</a>
+            </div>
+          </div>
+        </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-md-6">
+          <div class="footer-logo">Laavish Academy</div>
+          <p class="mt-3">A beauty academy made for future makeup artists, hair stylists and skincare professionals. Create your signature style with us.</p>
+        </div>
+        <div class="col-md-3">
+          <h6 class="text-uppercase text-white mb-3">Quick Links</h6>
+          <ul class="list-unstyled">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#programs">Programs</a></li>
+            <li><a href="#instructors">Instructors</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h6 class="text-uppercase text-white mb-3">Contact</h6>
+          <p class="mb-1"><i class="fas fa-phone me-2"></i>+91 81252 26109</p>
+          <p><i class="fas fa-envelope me-2"></i>laavish143@gmail.com</p>
+        </div>
+      </div>
+      <div class="text-center pt-4 mt-3 border-top border-white-10">
+        <small>&copy; 2026 Laavish Academy. All rights reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#home" class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></a>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 900, once: true, offset: 80 });
+
+    const navbar = document.querySelector('.navbar');
+    const backToTop = document.querySelector('.back-to-top');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+      if (window.scrollY > 400) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+    });
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('.navbar-collapse.show')?.classList.remove('show');
+      });
+    });
+  </script>
+</body>
+</html>
